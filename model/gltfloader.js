@@ -35,7 +35,8 @@ export default class GltfLoader {
       this.model.traverse(function (object) {
         if (object.isMesh) object.castShadow = true;
       });
-      this.model.scale.set(0.02, 0.02, 0.02);
+      this.animations['idle']=gltf.animations[0];
+      this.model.scale.set(2, 2, 2);
       this.setAnimation();
       scene.add(this.model);
     });
@@ -44,14 +45,14 @@ export default class GltfLoader {
   setAnimation(action = "idle") {
     var animationClip = this.animations[action];
     if (!animationClip) return alert("暂无动画");
-    console.log(animationClip, action);
     // 创建 AnimationMixer 对象
-    console.log(this.model)
     var mixer = new THREE.AnimationMixer(this.model);
     // 创建 AnimationAction 对象
-    // var animationAction = mixer.clipAction(animationClip);
+    var animationAction = mixer.clipAction(animationClip);
     // 开始播放动画
     console.log(animationAction);
-    // animationAction.play();
+    animationAction.play();
+    this.mixer=mixer;
+
   }
 }
