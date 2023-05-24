@@ -9,7 +9,6 @@ export default class InitThree {
     this.container = id ? document.getElementById(id) : document.body;
     this.controls = "";
     this.initAll();
-
   }
   initAll() {
     this.scene = new THREE.Scene();
@@ -35,10 +34,11 @@ export default class InitThree {
     // 使用控制器
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.target.set(0, 1, 0);
-    window.addEventListener("resize",()=>{
-        this.onResize()
-    })
+    window.addEventListener("resize", () => {
+      this.onResize();
+    });
   }
+
 
   animate(render) {
     requestAnimationFrame(() => {

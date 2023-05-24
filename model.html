@@ -37,7 +37,7 @@
         const gl = new InitThree();
 
         // 加载3d模型
-        const m = new GLTFLoader();
+        const m = new GLTFLoader(gl.camera,gl.controls);
         // 添加立方体
         m.loadModel(gl.scene)
         // 创建光照
@@ -59,6 +59,9 @@
         function render() {
             if (m.mixer) {
                 m.mixer.update(0.01)
+            }
+            if(m.controller){
+                m.controller.update()
             }
         }
 
