@@ -55,6 +55,8 @@ export default class GltfLoader {
           object.castShadow = true;
         }
       });
+
+    // gltf.material.emissive = new THREE.Color(0xffffff);
       this.controller = new DirController(this.model, this.camera, (key) => {
         // this.setControls(data)
         this.keyDown(key);

@@ -13,12 +13,23 @@ export default class InitThree {
   initAll() {
     this.scene = new THREE.Scene();
 
-    this.scene.background = new THREE.Color(0xe0e0e0);
     this.scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
+
+    const loader = new THREE.TextureLoader();
+    loader.load(
+      "model/textures/sky.jpg",
+      (texture) => {
+        this.scene.background = texture;
+      },
+      undefined,
+      (err) => {
+        console.error("An error happened.", err);
+      }
+    );
 
     // 创建相机
     this.camera = new THREE.PerspectiveCamera(
-      45,
+      60,
       window.innerWidth / window.innerHeight,
       0.25,
       100
@@ -38,7 +49,6 @@ export default class InitThree {
       this.onResize();
     });
   }
-
 
   animate(render) {
     requestAnimationFrame(() => {

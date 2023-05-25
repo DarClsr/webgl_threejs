@@ -24,8 +24,8 @@ export default class SceneLight {
     // distance：点光源的距离，使用浮点数表示，默认值为 0。距离越远，光照效果越弱。
     // decay：点光源的衰减，使用浮点数表示，默认值为 1。衰减越大，光照效果越弱。
 
-    var directlight = new THREE.DirectionalLight(0xffffff, 8,100);
-    directlight.position.set(0, 20, 5);
+    var directlight = new THREE.DirectionalLight(0xffffff, 5,100);
+    directlight.position.set(0, 5, 5);
     directlight.castShadow = true; // 设置光源投射阴影
     directlight.shadow.mapSize.width = 1024;
     directlight.shadow.mapSize.height = 1024;

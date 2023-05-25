@@ -32,12 +32,14 @@
         import GLTFLoader from "./model/gltfloader.js"
         import SceneLight from "./model/light.js"
         import PlaneFloor from "./model/plane.js"
+        import FloorTexture from "./model/floor_texture.js"
 
         // 基础场景配置
         const gl = new InitThree();
 
         // 加载3d模型
-        const m = new GLTFLoader(gl.camera,gl.controls);
+        const m = new GLTFLoader(gl.camera, gl.controls);
+        const f_t = new FloorTexture("./model/textures/floor.png")
         // 添加立方体
         m.loadModel(gl.scene)
         // 创建光照
@@ -50,17 +52,21 @@
         gl.scene.add(l.directlight)
 
         // 创建一个地板
-        const f = new PlaneFloor();
+        const f = new PlaneFloor(
+            {
+                texture: f_t.texture
+            }
+        );
         // 添加地板
         gl.scene.add(f.floor)
-        gl.scene.add(f.grid)
+        // gl.scene.add(f.grid)
 
 
         function render() {
             if (m.mixer) {
                 m.mixer.update(0.01)
             }
-            if(m.controller){
+            if (m.controller) {
                 m.controller.update()
             }
         }
