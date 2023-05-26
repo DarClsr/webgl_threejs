@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 import DirController from "./controller.js";
-
 const action_keys = {
   idle: "alistar_idle1.anm",
   walk: "alistar_run.anm",
@@ -27,7 +26,6 @@ export default class GltfLoader {
   }
 
   loadAnimations(glb) {
-    
     for (let action in action_keys) {
       this.animations[action] = glb.animations.find((v) => {
         return v.name == action_keys[action];
@@ -56,11 +54,24 @@ export default class GltfLoader {
         }
       });
 
-    // gltf.material.emissive = new THREE.Color(0xffffff);
-      this.controller = new DirController(this.model, this.camera, (key) => {
-        // this.setControls(data)
-        this.keyDown(key);
-      });
+      this.mixer = new THREE.AnimationMixer(this.model);
+
+    //   this.characterControls = new CharacterControls(
+    //     this.model,
+    //     mixer,
+    //     this.animations,
+    //     orbitControls,
+    //     this.camera,
+    //     "Idle",
+    //     new RAPIER.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: -1, z: 0 }),
+    //     rigidBody
+    //   );
+
+      // gltf.material.emissive = new THREE.Color(0xffffff);
+        this.controller = new DirController(this.model, this.camera, (key) => {
+          // this.setControls(data)
+          this.keyDown(key);
+        });
       this.model.scale.set(2, 2, 2);
       this.setAnimation();
       scene.add(this.model);
@@ -71,18 +82,16 @@ export default class GltfLoader {
   setAnimation(action = "idle") {
     var animationClip = this.animations[action];
     if (!animationClip) {
-        return alert("暂无动画");
+      return alert("暂无动画");
     }
 
     // 创建 AnimationMixer 对象
-    var mixer = new THREE.AnimationMixer(this.model);
     // 创建 AnimationAction 对象
-    const nextAction = mixer.clipAction(animationClip);
+    const nextAction = this.mixer.clipAction(animationClip);
     // 开始播放动画
     this.animationAction = nextAction;
     this.animationAction.play();
 
-    this.mixer = mixer;
   }
   keyDown(key) {
     let action = "";

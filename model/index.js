@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
+
 export default class InitThree {
   constructor(id) {
     this.scene = "";
@@ -44,6 +45,7 @@ export default class InitThree {
     this.container.appendChild(this.renderer.domElement);
     // 使用控制器
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    // this.controls=new  PointerLockControls(this.camera, this.renderer.domElement);
     this.controls.target.set(0, 1, 0);
     window.addEventListener("resize", () => {
       this.onResize();
