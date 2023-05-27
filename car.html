@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>车辆</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/"
+            }
+        }
+    </script>
+
+
+    <script type="module">
+        import InitThree from "./model/index.js"
+        import SceneLight from "./model/light.js"
+        import PlaneFloor from "./model/plane.js"
+
+        // 基础场景配置
+        const gl = new InitThree();
+
+        // 加载3d模型
+        // 创建光照
+        const l = new SceneLight()
+        // 添加环境光
+        gl.scene.add(l.ambientLight)
+        // 添加点光
+        // gl.scene.add(l.light)
+        // 添加方向光
+        gl.scene.add(l.directlight)
+
+        // 创建一个地板
+        const f = new PlaneFloor(
+            {}
+        );
+        // 添加地板
+        gl.scene.add(f.floor)
+        if(f.grid){
+        gl.scene.add(f.grid)
+        }
+
+
+        function render() {
+            
+        }
+
+
+        // 渲染场景
+        gl.animate(render)
+    </script>
+
+</body>
+
+</html>

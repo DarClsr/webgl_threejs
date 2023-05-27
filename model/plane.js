@@ -8,7 +8,7 @@ export default class PlaneFloor {
     hc = 100,
     color = 0xffffff,
     texture = "",
-    scene=""
+    scene = "",
   }) {
     this.floor = "";
     this.edgesLines = "";
@@ -18,7 +18,7 @@ export default class PlaneFloor {
     this.hc = hc;
     this.color = color;
     this.grid = "";
-    this.scene=scene;
+    this.scene = scene;
     this.createPlane(texture);
   }
 
@@ -35,31 +35,33 @@ export default class PlaneFloor {
       floorMaterial = new THREE.MeshBasicMaterial({
         map: texture,
         side: THREE.DoubleSide,
-        emissive: new THREE.Color(0x00000)   
+        emissive: new THREE.Color(0x00000),
       });
     }
     this.floor = new THREE.Mesh(floorGeometry, floorMaterial);
     this.floor.receiveShadow = true; // 设置平面接收阴影
     this.floor.rotation.x = -Math.PI / 2;
 
-    this.floor.addEventListener("click",(e)=>{
-        console.log("clicl")
-        this.clickFloor(e)
-    })
+    this.floor.addEventListener("click", (e) => {
+      console.log("clicl");
+      this.clickFloor(e);
+    });
     // this.floor.rotation.x = -0.5 * Math.PI
     // 创建地板的边框几何体和材质
-    // const grid = new THREE.GridHelper(500, 100, 0x000000, 0x000000);
-    // grid.material.opacity = 0.2;
-    // grid.material.transparent = true;
-    // grid.receiveShadow = true; // 设置平面接收阴影
+    if (!this.texture) {
+      const grid = new THREE.GridHelper(500, 100, 0x000000, 0x000000);
+      grid.material.opacity = 0.2;
+      grid.material.transparent = true;
+      grid.receiveShadow = true; // 设置平面接收阴影
 
-    // this.grid = grid;
+      this.grid = grid;
+    }
 
     // this.floor.add(grid)
   }
 
-  clickFloor(e){
-    console.log("clicl floor",e)
+  clickFloor(e) {
+    console.log("clicl floor", e);
     const { x, y, z } = e.point;
     const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
     const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
